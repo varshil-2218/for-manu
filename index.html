@@ -67,14 +67,20 @@
     </div>
 
     <script>
-       function nextPage(num) {
-    // This is the "Magic" line that bypasses browser blocks
-    var music = document.getElementById('bg-music');
-    if (music && num === 2) {
-        music.play().catch(function(error) {
-            console.log("Audio play failed: ", error);
+      function nextPage(num) {
+    // Force the audio to play when the button is clicked
+    const music = document.getElementById('bg-music');
+    if (music) {
+        music.play().then(() => {
+            console.log("Music playing!");
+        }).catch(e => {
+            console.log("Playback failed:", e);
         });
     }
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page' + num).classList.add('active');
+}
 
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page' + num).classList.add('active');
@@ -99,6 +105,7 @@
 </body>
 
 </html>
+
 
 
 
